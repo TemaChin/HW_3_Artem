@@ -15,8 +15,7 @@ extension MyFriendViewController: IInputView  {
         }
     }
     func myFriendsNameLabelSetup() {
-        myFriendsNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        myFriendsNameLabel.textAlignment = .center
+        myFriendsNameLabel.Setup()
         myFriendsNameLabel.attributedText = NSAttributedString(string: currentFriend?.name ?? "_", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20) as Any])
         NSLayoutConstraint.activate([
                                         myFriendsNameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
@@ -25,8 +24,7 @@ extension MyFriendViewController: IInputView  {
                                         myFriendsNameLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func myFriendsCityLabelSetup() {
-        myFriendsCityLabel.translatesAutoresizingMaskIntoConstraints = false
-        myFriendsCityLabel.textAlignment = .center
+        myFriendsCityLabel.Setup()
         myFriendsCityLabel.attributedText = NSAttributedString(string: currentFriend?.info ?? "_", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 15) as Any, NSAttributedString.Key.foregroundColor : UIColor.blue])
         NSLayoutConstraint.activate([
                                         myFriendsCityLabel.leadingAnchor.constraint(equalTo: myFriendsNameLabel.leadingAnchor),
@@ -35,12 +33,7 @@ extension MyFriendViewController: IInputView  {
                                         myFriendsCityLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func myFriendsBackButtonSetup() {
-        myFriendsBackButton.translatesAutoresizingMaskIntoConstraints = false
-        myFriendsBackButton.layer.borderColor = UIColor.black.cgColor
-        myFriendsBackButton.layer.borderWidth = 1.0
-        myFriendsBackButton.layer.cornerRadius = 5.0
-        myFriendsBackButton.clipsToBounds = true
-        myFriendsBackButton.setTitleColor(.black, for: .normal)
+        myFriendsBackButton.Setup()
         myFriendsBackButton.setTitle("back", for: .normal)
         myFriendsBackButton.addTarget(self, action: #selector(myFriendBackButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([

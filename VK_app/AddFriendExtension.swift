@@ -7,12 +7,13 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 extension AddFriendViewController: UITextFieldDelegate {
     
-    func setText(_ name: String, _ sizeFont: Int) -> UIFont {
-        return UIFont(name: name, size: CGFloat(sizeFont))!
-    }
+//    func setText(_ name: String, _ sizeFont: Int) -> UIFont {
+//        return UIFont(name: name, size: CGFloat(sizeFont))!
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         resignFirstResponder()
@@ -20,12 +21,7 @@ extension AddFriendViewController: UITextFieldDelegate {
     }
     
     func addBackButtonSetup() {
-        addBackButton.translatesAutoresizingMaskIntoConstraints = false
-        addBackButton.layer.borderColor = UIColor.black.cgColor
-        addBackButton.layer.borderWidth = 1.0
-        addBackButton.layer.cornerRadius = 5.0
-        addBackButton.clipsToBounds = true
-        addBackButton.setTitleColor(.black, for: .normal)
+        addBackButton.Setup()
         addBackButton.setTitle("back", for: .normal)
         addBackButton.addTarget(self, action: #selector(addFriendBackButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -35,12 +31,7 @@ extension AddFriendViewController: UITextFieldDelegate {
                                         addBackButton.heightAnchor.constraint(equalToConstant: 50)])
     }
     func addDoneButtonSetup() {
-        addDoneButton.translatesAutoresizingMaskIntoConstraints = false
-        addDoneButton.layer.borderColor = UIColor.black.cgColor
-        addDoneButton.layer.borderWidth = 1.0
-        addDoneButton.layer.cornerRadius = 5.0
-        addDoneButton.clipsToBounds = true
-        addDoneButton.setTitleColor(.black, for: .normal)
+        addDoneButton.Setup()
         addDoneButton.setTitle("add", for: .normal)
         addDoneButton.addTarget(self, action: #selector(addFriendDoneButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -50,8 +41,7 @@ extension AddFriendViewController: UITextFieldDelegate {
                                         addDoneButton.heightAnchor.constraint(equalToConstant: 50)])
     }
     func nameFriendAddFriendLabelSetup() {
-        nameFriendAddFriendLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameFriendAddFriendLabel.textAlignment = .center
+        nameFriendAddFriendLabel.Setup()
         nameFriendAddFriendLabel.attributedText = NSAttributedString(string: "Имя друга", attributes: [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20) as Any])
         NSLayoutConstraint.activate([
                                         nameFriendAddFriendLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -60,12 +50,7 @@ extension AddFriendViewController: UITextFieldDelegate {
                                         nameFriendAddFriendLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func nameFriendAddFriendTextFieldSetup() {
-        nameFriendAddFriendTextField!.translatesAutoresizingMaskIntoConstraints = false
-        nameFriendAddFriendTextField!.textAlignment = .left
-        nameFriendAddFriendTextField!.layer.cornerRadius = 5.0
-        nameFriendAddFriendTextField!.layer.borderColor = UIColor.black.cgColor
-        nameFriendAddFriendTextField!.layer.borderWidth = 1.0
-        nameFriendAddFriendTextField!.font = UIFont(name: "Helvetica", size: 15)
+        nameFriendAddFriendTextField!.Setup()
         NSLayoutConstraint.activate([
                                         nameFriendAddFriendTextField!.centerXAnchor.constraint(equalTo: nameFriendAddFriendLabel.centerXAnchor),
                                         nameFriendAddFriendTextField!.topAnchor.constraint(equalTo: nameFriendAddFriendLabel.bottomAnchor),
@@ -73,8 +58,7 @@ extension AddFriendViewController: UITextFieldDelegate {
                                         nameFriendAddFriendTextField!.heightAnchor.constraint(equalToConstant: 50)])
     }
     func cityFriendAddFriendLabelSetup() {
-        cityFriendAddFriendLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityFriendAddFriendLabel.textAlignment = .center
+        cityFriendAddFriendLabel.Setup()
         cityFriendAddFriendLabel.attributedText = NSAttributedString(string: "Город друга", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 20) as Any])
         NSLayoutConstraint.activate([
                                         cityFriendAddFriendLabel.centerXAnchor.constraint(equalTo: nameFriendAddFriendTextField!.centerXAnchor),
@@ -83,12 +67,7 @@ extension AddFriendViewController: UITextFieldDelegate {
                                         cityFriendAddFriendLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func cityFriendAddFriendTextFieldSetup() {
-        cityFriendAddFriendTextField!.translatesAutoresizingMaskIntoConstraints = false
-        cityFriendAddFriendTextField!.textAlignment = .left
-        cityFriendAddFriendTextField!.layer.cornerRadius = 5.0
-        cityFriendAddFriendTextField!.layer.borderColor = UIColor.black.cgColor
-        cityFriendAddFriendTextField!.layer.borderWidth = 1.0
-        cityFriendAddFriendTextField!.font = setText("Helvetica", 15)
+        cityFriendAddFriendTextField!.Setup()
         NSLayoutConstraint.activate([
                                         cityFriendAddFriendTextField!.centerXAnchor.constraint(equalTo: cityFriendAddFriendLabel.centerXAnchor),
                                         cityFriendAddFriendTextField!.topAnchor.constraint(equalTo: cityFriendAddFriendLabel.bottomAnchor),
@@ -97,14 +76,9 @@ extension AddFriendViewController: UITextFieldDelegate {
     }
     
     func createFriend() {
-        print("----------LOOK----1-------------")
+        if !nameFriendAddFriendTextField!.text!.isEmpty || !cityFriendAddFriendTextField!.text!.isEmpty {
         if let context = StoreManager.shared.context {
-            print("----------LOOK----2-------------")
-            print(StoreManager.shared.context as Any)
-            print("----------LOOK----2-------------")
-            // здесь не создается entity
             if let Entity = NSEntityDescription.entity(forEntityName: "Friend", in: context) {
-                print("----------LOOK----3-------------")
                 let friend = Friend(entity: Entity, insertInto: context)
                 friend.name = nameFriendAddFriendTextField?.text ?? "не указано имя"
                 friend.city = cityFriendAddFriendTextField?.text ?? "не указан город"
@@ -117,6 +91,17 @@ extension AddFriendViewController: UITextFieldDelegate {
                 print("Не создался")
             }
         }
-        
+    }
+    }
+    func createFriendRealm() {
+        if !nameFriendAddFriendTextField!.text!.isEmpty || !cityFriendAddFriendTextField!.text!.isEmpty {
+            let newFriend = MyFriendProfileRealm()
+            newFriend.friendName = nameFriendAddFriendTextField?.text ?? "не указано имя"
+            newFriend.friendCity = cityFriendAddFriendTextField?.text ?? "не указан город"
+            try! realm?.write{
+                realm?.add(newFriend)
+//                    print(self.realm?.configuration.fileURL?.absoluteURL as Any)
+                }
+        }
     }
 }

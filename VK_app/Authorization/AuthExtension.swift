@@ -10,9 +10,10 @@ import UIKit
 extension AuthViewController {
     
     func vkLabelSetup() {
-        vkLabel.translatesAutoresizingMaskIntoConstraints = false
+        vkLabel.Setup()
+//        vkLabel.translatesAutoresizingMaskIntoConstraints = false
         vkLabel.attributedText = NSAttributedString(string: "Vkontakte", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 20) as Any])
-        vkLabel.textAlignment = .center
+//        vkLabel.textAlignment = .center
         NSLayoutConstraint.activate([
                                         vkLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                                         vkLabel.bottomAnchor.constraint(equalTo: vkLoginLabel.topAnchor, constant: -50),
@@ -20,12 +21,13 @@ extension AuthViewController {
                                         vkLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func vkTextLoginSetup() {
-        vkTextLogin.translatesAutoresizingMaskIntoConstraints = false
-        vkTextLogin.font = UIFont(name: "Helvetica", size: 15)
-        vkTextLogin.textAlignment = .left
-        vkTextLogin.layer.cornerRadius = 5.0
-        vkTextLogin.layer.borderColor = UIColor.black.cgColor
-        vkTextLogin.layer.borderWidth = 1.0
+        vkTextLogin.Setup()
+//        vkTextLogin.translatesAutoresizingMaskIntoConstraints = false
+//        vkTextLogin.font = UIFont(name: "Helvetica", size: 15)
+//        vkTextLogin.textAlignment = .left
+//        vkTextLogin.layer.cornerRadius = 5.0
+//        vkTextLogin.layer.borderColor = UIColor.black.cgColor
+//        vkTextLogin.layer.borderWidth = 1.0
         NSLayoutConstraint.activate([
                                         vkTextLogin.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                                         vkTextLogin.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -50),
@@ -33,9 +35,10 @@ extension AuthViewController {
                                         vkTextLogin.heightAnchor.constraint(equalToConstant: 50)])
     }
     func vkLoginLabelSetup() {
-        vkLoginLabel.translatesAutoresizingMaskIntoConstraints = false
+        vkLoginLabel.Setup()
+//        vkLoginLabel.translatesAutoresizingMaskIntoConstraints = false
         vkLoginLabel.attributedText = NSAttributedString(string: "login", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 15) as Any])
-        vkLoginLabel.textAlignment = .center
+//        vkLoginLabel.textAlignment = .center
         NSLayoutConstraint.activate([
                                         vkLoginLabel.centerXAnchor.constraint(equalTo: vkTextLogin.centerXAnchor),
                                         vkLoginLabel.bottomAnchor.constraint(equalTo: vkTextLogin.topAnchor),
@@ -43,10 +46,10 @@ extension AuthViewController {
                                         vkLoginLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func vkPasswordLabelSetup() {
-        vkPasswordLabel.translatesAutoresizingMaskIntoConstraints = false
-        vkPasswordLabel.textAlignment = .center
+        vkPasswordLabel.Setup()
+//        vkPasswordLabel.translatesAutoresizingMaskIntoConstraints = false
+//        vkPasswordLabel.textAlignment = .center
         vkPasswordLabel.attributedText = NSAttributedString(string: "password", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 15) as Any])
-        vkPasswordLabel.textAlignment = .center
         NSLayoutConstraint.activate([
                                         vkPasswordLabel.centerXAnchor.constraint(equalTo: vkTextLogin.centerXAnchor),
                                         vkPasswordLabel.topAnchor.constraint(equalTo: vkTextLogin.bottomAnchor, constant: 50),
@@ -54,12 +57,13 @@ extension AuthViewController {
                                         vkPasswordLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func vkTextPasswordSetup() {
-        vkTextPassword.translatesAutoresizingMaskIntoConstraints = false
-        vkTextPassword.font = UIFont(name: "Helvetica", size: 15)
-        vkTextPassword.textAlignment = .left
-        vkTextPassword.layer.cornerRadius = 5.0
-        vkTextPassword.layer.borderColor = UIColor.black.cgColor
-        vkTextPassword.layer.borderWidth = 1.0
+        vkTextPassword.Setup()
+//        vkTextPassword.translatesAutoresizingMaskIntoConstraints = false
+//        vkTextPassword.font = UIFont(name: "Helvetica", size: 15)
+//        vkTextPassword.textAlignment = .left
+//        vkTextPassword.layer.cornerRadius = 5.0
+//        vkTextPassword.layer.borderColor = UIColor.black.cgColor
+//        vkTextPassword.layer.borderWidth = 1.0
         NSLayoutConstraint.activate([
                                         vkTextPassword.centerXAnchor.constraint(equalTo: vkTextLogin.centerXAnchor),
                                         vkTextPassword.topAnchor.constraint(equalTo: vkPasswordLabel.bottomAnchor),
@@ -67,15 +71,16 @@ extension AuthViewController {
                                         vkTextPassword.heightAnchor.constraint(equalToConstant: 50)])
     }
     func vkAuthButtonSetup() {
-        vkAuthButton.translatesAutoresizingMaskIntoConstraints = false
-        vkAuthButton.layer.borderColor = UIColor.black.cgColor
-        vkAuthButton.layer.borderWidth = 1.0
-        vkAuthButton.layer.cornerRadius = 5.0
-        vkAuthButton.clipsToBounds = true
-        vkAuthButton.setTitleColor(.black, for: .normal)
+        vkAuthButton.SetupBlueWhite()
+//        vkAuthButton.translatesAutoresizingMaskIntoConstraints = false
+//        vkAuthButton.layer.borderColor = UIColor.black.cgColor
+//        vkAuthButton.layer.borderWidth = 1.0
+//        vkAuthButton.layer.cornerRadius = 5.0
+//        vkAuthButton.clipsToBounds = true
+//        vkAuthButton.setTitleColor(.black, for: .normal)
         vkAuthButton.setTitle("Sign UP", for: .normal)
-        vkAuthButton.backgroundColor = .blue
-        vkAuthButton.setTitleColor(.white, for: .normal)
+//        vkAuthButton.backgroundColor = .blue
+//        vkAuthButton.setTitleColor(.white, for: .normal)
         vkAuthButton.addTarget(self, action: #selector(vkAuthButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
                                         vkAuthButton.centerXAnchor.constraint(equalTo: vkTextLogin.centerXAnchor),

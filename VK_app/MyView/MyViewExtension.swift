@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 extension MyViewController {
     
     func myNameLabelSetup() {
-        myNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        myNameLabel.textAlignment = .center
+        myNameLabel.Setup()
         myNameLabel.attributedText = NSAttributedString(string: fileHandlerMyView.fileRead("myName"), attributes: [NSAttributedString.Key.foregroundColor : UIColor.blue, NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 20) as Any])
         NSLayoutConstraint.activate([
                                         myNameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
@@ -20,8 +20,7 @@ extension MyViewController {
                                         myNameLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func myCityLabelSetup() {
-        myCityLabel.translatesAutoresizingMaskIntoConstraints = false
-        myCityLabel.textAlignment = .center
+        myCityLabel.Setup()
         myCityLabel.attributedText = NSAttributedString(string: fileHandlerMyView.fileRead("myCity"), attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 15) as Any, NSAttributedString.Key.foregroundColor : UIColor.blue])
         NSLayoutConstraint.activate([
                                         myCityLabel.leadingAnchor.constraint(equalTo: myNameLabel.leadingAnchor),
@@ -30,21 +29,35 @@ extension MyViewController {
                                         myCityLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
     func myFriendsSetup() {
-        myFriends.translatesAutoresizingMaskIntoConstraints = false
-        myFriends.layer.borderColor = UIColor.black.cgColor
-        myFriends.layer.borderWidth = 1.0
-        myFriends.layer.cornerRadius = 5.0
-        myFriends.clipsToBounds = true
-        myFriends.setTitleColor(.black, for: .normal)
+        myFriends.SetupBlueWhite()
         myFriends.setTitle("Friends", for: .normal)
-        myFriends.backgroundColor = .blue
-        myFriends.setTitleColor(.white, for: .normal)
         myFriends.addTarget(self, action: #selector(vkFriendsButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
                                         myFriends.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
                                         myFriends.topAnchor.constraint(equalTo: myCityLabel.bottomAnchor, constant: 30),
                                         myFriends.widthAnchor.constraint(equalToConstant: 100),
                                         myFriends.heightAnchor.constraint(equalToConstant: 50)])
+    }
+    func setupWhiteButtonSetup() {
+        setupWhiteButton.Setup()
+        setupWhiteButton.setTitle("White", for: .normal)
+        setupWhiteButton.addTarget(self, action: #selector(setupWhiteButtonAction), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+                                        setupWhiteButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50),
+                                        setupWhiteButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30),
+                                        setupWhiteButton.widthAnchor.constraint(equalToConstant: 80),
+                                        setupWhiteButton.heightAnchor.constraint(equalToConstant: 30)])
+    }
+    func setupBlueButtonSetup() {
+        setupBlueButton.Setup()
+        setupBlueButton.setTitle("blue", for: .normal)
+        setupBlueButton.addTarget(self, action: #selector(setupBlueButtonButtonAction), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+                                        setupBlueButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
+                                        setupBlueButton.topAnchor.constraint(equalTo: setupWhiteButton.topAnchor),
+                                        setupBlueButton.widthAnchor.constraint(equalToConstant: 80),
+                                        setupBlueButton.heightAnchor.constraint(equalToConstant: 30)])
+
     }
     func myData() {
         fileHandlerMyView.fileSave("myName", fileText: "Василий")

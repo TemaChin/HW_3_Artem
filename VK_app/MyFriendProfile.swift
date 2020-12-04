@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RealmSwift
+
 /// структура профиля друга
 struct MyFriendProfile {
     

@@ -6,19 +6,30 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class MyViewController: UIViewController {
 
-    lazy var myNameLabel: UILabel = {
-        return UILabel()
+    lazy var myNameLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var myCityLabel: UILabel = {
-        return UILabel()
+    lazy var myCityLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var myFriends: UIButton = {
-        return UIButton()
+    lazy var myFriends: MyButton = {
+        return MyButton()
     }()
+    
     let fileHandlerMyView = FileHandler()
+    
+    var ref: DatabaseReference?
+    
+    lazy var setupWhiteButton: MyButton = {
+        return MyButton()
+    }()
+    lazy var setupBlueButton: MyButton = {
+        return MyButton()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +41,10 @@ class MyViewController: UIViewController {
         myCityLabelSetup()
         view.addSubview(myFriends)
         myFriendsSetup()
+        view.addSubview(setupWhiteButton)
+        setupWhiteButtonSetup()
+        view.addSubview(setupBlueButton)
+        setupBlueButtonSetup()
         
     }
     
@@ -40,4 +55,17 @@ class MyViewController: UIViewController {
     }
     
     }
+    
+    @ objc func setupWhiteButtonAction(_ sender: Any) {
+        var ref = Database.database().reference()
+        ref.removeValue()
+        ref.child("buttonBackground").childByAutoId().setValue("white")
+    }
+    
+    @ objc func setupBlueButtonButtonAction() {
+        var ref = Database.database().reference()
+        ref.removeValue()
+        ref.child("buttonBackground").childByAutoId().setValue("blue")
+    }
+
 }

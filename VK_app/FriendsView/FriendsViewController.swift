@@ -7,16 +7,20 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    lazy var addFriendButton: UIButton = {
-        return UIButton()
+    lazy var addFriendButton: MyButton = {
+        return MyButton()
     }()
-    lazy var FriendsBackButton: UIButton = {
-        return UIButton()
+    lazy var FriendsBackButton: MyButton = {
+        return MyButton()
     }()
     var dataModel = [MyFriendProfile]()
+    lazy var realm = try? Realm()
+    var token: NotificationToken?
+    var friendArray: Results<MyFriendProfileRealm>? = nil
 
     @IBOutlet weak var friendsTableView: UITableView!
     
@@ -25,10 +29,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell = UINib(nibName: "FriendsCell", bundle: nil)
         self.friendsTableView.register(cell, forCellReuseIdentifier: "cell")
-        
-//        let model = MyFriendProfile("Vitek", "Voronesh")
-//        dataModel.append(model)
-        
+
         view.addSubview(addFriendButton)
         addFriendButtonSetup()
         view.addSubview(FriendsBackButton)
@@ -40,8 +41,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         self.friendsTableView.delegate = self
         self.friendsTableView.dataSource = self
-//        createFriend2()
-//        self.requestData()
+//        self.requestDataCoreData()
+        self.requestDataRealm()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,5 +80,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @ objc func FriendsBackButtonAction() {
         self.navigationController?.popViewController(animated: true)
+    }
+    deinit {
+        self.token?.invalidate()
     }
     }

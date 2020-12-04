@@ -7,29 +7,31 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 class AddFriendViewController: UIViewController {
     
-    lazy var addBackButton: UIButton = {
-        return UIButton()
+    lazy var addBackButton: MyButton = {
+        return MyButton()
     }()
-    lazy var addDoneButton: UIButton = {
-        return UIButton()
+    lazy var addDoneButton: MyButton = {
+        return MyButton()
     }()
-    lazy var nameFriendAddFriendLabel: UILabel = {
-        return UILabel()
+    lazy var nameFriendAddFriendLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var nameFriendAddFriendTextField: UITextField? = {
-        return UITextField()
+    lazy var nameFriendAddFriendTextField: MyTextField? = {
+        return MyTextField()
     }()
-    lazy var cityFriendAddFriendLabel: UILabel = {
-        return UILabel()
+    lazy var cityFriendAddFriendLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var cityFriendAddFriendTextField: UITextField? = {
-        return UITextField()
+    lazy var cityFriendAddFriendTextField: MyTextField? = {
+        return MyTextField()
     }()
     var createdFrind: MyFriendProfile? = nil
     weak var listener: OutputView? = nil
+    lazy var realm = try? Realm()
     
 
     override func viewDidLoad() {
@@ -57,12 +59,8 @@ class AddFriendViewController: UIViewController {
     @ objc func addFriendDoneButtonAction() {
         
         self.createFriend()
+        self.createFriendRealm()
         
-        
-        let name = nameFriendAddFriendTextField?.text ?? "не указано имя"
-        let city = cityFriendAddFriendTextField?.text ?? "не указан город"
-        let newFriend = MyFriendProfile(name, city)
-        self.listener?.output(newFriend, identifier: String(describing: AddFriendViewController.self))
         self.navigationController?.popViewController(animated: true)
 
     }

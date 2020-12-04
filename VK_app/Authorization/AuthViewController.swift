@@ -9,23 +9,23 @@ import UIKit
 
 class AuthViewController: UIViewController {
 
-    lazy var vkLabel: UILabel = {
-        return UILabel()
+    lazy var vkLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var vkTextLogin: UITextField = {
-        return UITextField()
+    lazy var vkTextLogin: MyTextField = {
+        return MyTextField()
     }()
-    lazy var vkLoginLabel: UILabel = {
-        return UILabel()
+    lazy var vkLoginLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var vkPasswordLabel: UILabel = {
-        return UILabel()
+    lazy var vkPasswordLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var vkTextPassword: UITextField = {
-        return UITextField()
+    lazy var vkTextPassword: MyTextField = {
+        return MyTextField()
     }()
-    lazy var vkAuthButton: UIButton = {
-        return UIButton()
+    lazy var vkAuthButton: MyButton = {
+        return MyButton()
     }()
     let fileHandler = FileHandler()
 
@@ -52,10 +52,6 @@ class AuthViewController: UIViewController {
         if let login = vkTextLogin.text,
            let password = vkTextPassword.text {
             if login == fileHandler.fileRead("login"), password == fileHandler.fileRead("password") {
-                
-//                let viewController = UINavigationController(rootViewController: MyViewController())
-//                UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.rootViewController = viewController
-
                 let viewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyNaviViewController")
                 UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.rootViewController = viewController
             }

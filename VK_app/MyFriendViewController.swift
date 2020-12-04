@@ -9,14 +9,14 @@ import UIKit
 
 class MyFriendViewController: UIViewController {
     
-    lazy var myFriendsNameLabel: UILabel = {
-        return UILabel()
+    lazy var myFriendsNameLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var myFriendsCityLabel: UILabel = {
-        return UILabel()
+    lazy var myFriendsCityLabel: MyLabel = {
+        return MyLabel()
     }()
-    lazy var myFriendsBackButton: UIButton = {
-        return UIButton()
+    lazy var myFriendsBackButton: MyButton = {
+        return MyButton()
     }()
     var currentFriend: MyFriendProfile? = nil
 

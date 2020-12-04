@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 extension FriendsViewController: OutputView {
     
@@ -19,12 +20,7 @@ extension FriendsViewController: OutputView {
         }
     }
     func addFriendButtonSetup() {
-        addFriendButton.translatesAutoresizingMaskIntoConstraints = false
-        addFriendButton.layer.borderColor = UIColor.black.cgColor
-        addFriendButton.layer.borderWidth = 1.0
-        addFriendButton.layer.cornerRadius = 5.0
-        addFriendButton.clipsToBounds = true
-        addFriendButton.setTitleColor(.black, for: .normal)
+        addFriendButton.Setup()
         addFriendButton.setTitle("add", for: .normal)
         addFriendButton.addTarget(self, action: #selector(addFriendButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -34,12 +30,7 @@ extension FriendsViewController: OutputView {
                                         addFriendButton.heightAnchor.constraint(equalToConstant: 50)])
     }
     func FriendsBackButtonSetup() {
-        FriendsBackButton.translatesAutoresizingMaskIntoConstraints = false
-        FriendsBackButton.layer.borderColor = UIColor.black.cgColor
-        FriendsBackButton.layer.borderWidth = 1.0
-        FriendsBackButton.layer.cornerRadius = 5.0
-        FriendsBackButton.clipsToBounds = true
-        FriendsBackButton.setTitleColor(.black, for: .normal)
+        FriendsBackButton.Setup()
         FriendsBackButton.setTitle("back", for: .normal)
         FriendsBackButton.addTarget(self, action: #selector(FriendsBackButtonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -48,14 +39,12 @@ extension FriendsViewController: OutputView {
                                     FriendsBackButton.widthAnchor.constraint(equalToConstant: 50),
                                     FriendsBackButton.heightAnchor.constraint(equalToConstant: 50)])
     }
-/*
-    func requestData() {
+
+    func requestDataCoreData() {
         self.dataModel = [MyFriendProfile]()
         let request = NSFetchRequest<NSManagedObject>(entityName: "Friend")
         if let context = StoreManager.shared.context {
             do {
-                print("----------LOOK-----------------")
-                print(request)
                 let result = try context.fetch(request)
                 for item in result {
                     if let friend = item as? Friend {
@@ -69,7 +58,18 @@ extension FriendsViewController: OutputView {
             }
         }
     }
-    */
+    
+    func requestDataRealm() {
+        self.dataModel = [MyFriendProfile]()
+        guard let realm = try? Realm() else {return}
+        self.friendArray = realm.objects(MyFriendProfileRealm.self)
+        for item in friendArray! {
+            let friendItem = MyFriendProfile(item.friendName , item.friendCity )
+            dataModel.append(friendItem)
+        }
+        self.friendsTableView.reloadData()
+    }
+
 }
 
 extension String {
